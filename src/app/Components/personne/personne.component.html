@@ -1,0 +1,98 @@
+<mat-card class="example-card">
+  <mat-card-header>
+      <!-- <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field> -->
+      <!-- <div class="conteneur">
+          <button mat-button color="accent"  class="btn-1">
+            Nom
+          </button>
+          <button mat-button color="accent"  class="btn-1">
+            Bureau
+          </button>
+      </div> -->
+      <div mat-card-avatar class="example-header-image">
+      <button mat-raised-button color="primary" aria-label="Example icon-button with a plus icon" >
+        <mat-icon ><fa-icon [icon]="faPlus"></fa-icon></mat-icon>
+      </button>
+      </div>
+      <mat-tab-group color="accent" backgroundColor="primary" >
+        <mat-tab label="Nom">
+           <mat-form-field>
+                 <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrer par Nom">
+           </mat-form-field>
+       </mat-tab>
+        <mat-tab label="Bureau">
+            <mat-form-field>
+                 <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter par Bureau">
+            </mat-form-field>
+       </mat-tab>
+
+      </mat-tab-group>
+  </mat-card-header>
+  <mat-card-content>
+
+
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 " >
+   <!-- Checkbox Column -->
+   <ng-container matColumnDef="select">
+    <th mat-header-cell *matHeaderCellDef>
+      <mat-checkbox (change)="$event ? masterToggle() : null"
+                    [checked]="selection.hasValue() && isAllSelected()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected()"
+                    [aria-label]="checkboxLabel()">
+      </mat-checkbox>
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <mat-checkbox (click)="$event.stopPropagation()"
+                    (change)="$event ? selection.toggle(row) : null"
+                    [checked]="selection.isSelected(row)"
+                    [aria-label]="checkboxLabel(row)">
+      </mat-checkbox>
+    </td>
+  </ng-container>
+
+   <!-- Edit Column -->
+   <ng-container matColumnDef="edit">
+    <th mat-header-cell *matHeaderCellDef>
+
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <button mat-icon-button color="accent" aria-label="Example icon-button with a plus icon" >
+        <mat-icon ><fa-icon [icon]="faEdit"></fa-icon></mat-icon>
+      </button>
+    </td>
+  </ng-container>
+ <!-- Position Column -->
+ <ng-container matColumnDef="ID">
+  <th mat-header-cell *matHeaderCellDef> ID </th>
+  <td mat-cell *matCellDef="let element"> {{element.ID}} </td>
+</ng-container>
+<!-- Name Column -->
+<ng-container matColumnDef="Nom">
+  <th mat-header-cell *matHeaderCellDef> Nom </th>
+  <td mat-cell *matCellDef="let element"> {{element.Nom}} </td>
+</ng-container>
+
+
+
+<!-- Symbol Column -->
+<ng-container matColumnDef="Bureau">
+  <th mat-header-cell *matHeaderCellDef> Bureau </th>
+  <td mat-cell *matCellDef="let element"> {{element.Bureau}} </td>
+</ng-container>
+<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+</mat-card-content>
+<mat-card-actions >
+  <div class="footer">
+    <button mat-icon-button color="warn" aria-label="Example icon-button with a trash icon" id="supprimer" >
+      <mat-icon ><fa-icon [icon]="faTrash"></fa-icon></mat-icon>
+    </button>
+  </div>
+
+
+  </mat-card-actions>
+</mat-card>
